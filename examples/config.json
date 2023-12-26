@@ -2,5 +2,6 @@
 	"root": ".",
 	"ignore": ["some/path/to/ignore"],
 	"args": ["dev"],
-	"suffixes": [".go", ".html", ".tpl"]
+	"suffixes": [".go", ".html", ".tpl"],
+	"buildOpt": ["-buildvcs=false"]
 }

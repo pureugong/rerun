@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"strings"
 	"time"
 )
 
@@ -22,7 +23,9 @@ func (pm *processManager) run() {
 	start := time.Now()
 
 	os.Remove(pm.conf.build)
-	out, err := exec.Command("go", "build", "-o", pm.conf.build).CombinedOutput()
+
+	buildOpts := strings.Join(pm.conf.buildOpts, " ")
+	out, err := exec.Command("go", "build", buildOpts, "-o", pm.conf.build).CombinedOutput()
 
 	if err != nil {
 		logger.Errorf("build failed! %s", err.Error())
