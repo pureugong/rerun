@@ -18,22 +18,24 @@ const (
 )
 
 var (
-	verbose  = kingpin.Flag("verbose", "Verbose mode. It will show rerun internal messages. Default: false").Short('v').Bool()
-	ignore   = kingpin.Flag("ignore", "List of ignored files and directories.").Default("").Short('i').String()
-	args     = kingpin.Flag("args", "Application arguments.").Default("").Short('a').String()
-	suffixes = kingpin.Flag("suffixes", "File suffixes to watch.").Short('s').String()
-	confPath = kingpin.Flag("config", "JSON configuration location").Short('c').String()
-	test     = kingpin.Flag("test", "Run tests").Short('t').Bool()
-	attrib   = kingpin.Flag("attrib", "Also watch attribute changes").Bool()
+	verbose   = kingpin.Flag("verbose", "Verbose mode. It will show rerun internal messages. Default: false").Short('v').Bool()
+	ignore    = kingpin.Flag("ignore", "List of ignored files and directories.").Default("").Short('i').String()
+	args      = kingpin.Flag("args", "Application arguments.").Default("").Short('a').String()
+	suffixes  = kingpin.Flag("suffixes", "File suffixes to watch.").Short('s').String()
+	confPath  = kingpin.Flag("config", "JSON configuration location").Short('c').String()
+	test      = kingpin.Flag("test", "Run tests").Short('t').Bool()
+	attrib    = kingpin.Flag("attrib", "Also watch attribute changes").Bool()
+	buildOpts = kingpin.Flag("buildopts", "Build Options to build go").String()
 )
 
 type config struct {
-	Ignore   []string
-	Args     []string
-	Suffixes []string
-	Test     bool
-	Attrib   bool
-	build    string
+	Ignore    []string
+	Args      []string
+	Suffixes  []string
+	Test      bool
+	Attrib    bool
+	build     string
+	buildOpts []string
 }
 
 func newConfig() (*config, error) {
@@ -92,6 +94,10 @@ func loadConfiguration() (*config, error) {
 
 	if len(conf.Suffixes) == 0 {
 		conf.Suffixes = append(conf.Suffixes, ".go")
+	}
+
+	if len(conf.buildOpts) == 0 {
+		conf.buildOpts = append(conf.buildOpts, strings.Split(*buildOpts, ",")...)
 	}
 
 	if test != nil {
