@@ -25,6 +25,7 @@ Flags:
   -v, --verbose            Verbose mode. It will show rerun internal messages. Default: false
   -i, --ignore=IGNORE      List of ignored files and directories.
   -a, --args=ARGS          Application arguments.
+  -b, --buildopts=BUILDOPTS Build Options to build go
   -s, --suffixes=SUFFIXES  File suffixes to watch.
   -c, --config=CONFIG      JSON configuration location
   -t, --test               Run tests
@@ -55,6 +56,8 @@ Create json file with content, with name for example conf.json
 {
 	"ignore": ["some/path/to/ignore1", "some/path/to/ignore2"],
 	"args": ["dev", "test"],
+    "buildOpt": ["-buildvcs=false"],
+	"suffixes": [".go", ".html", ".tpl"],
 	"suffixes": [".go", ".html", ".tpl"],
     "attrib": true
 }
