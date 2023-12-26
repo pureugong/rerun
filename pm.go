@@ -24,8 +24,19 @@ func (pm *processManager) run() {
 
 	os.Remove(pm.conf.build)
 
+	// Join build options with spaces
 	buildOpts := strings.Join(pm.conf.buildOpts, " ")
-	out, err := exec.Command("go", "build", buildOpts, "-o", pm.conf.build).CombinedOutput()
+
+	// Print build command and options for debugging
+	fmt.Println("Build command:", pm.conf.build)
+	fmt.Println("Build options:", pm.conf.buildOpts)
+
+	// Create a slice with command arguments
+	args := append([]string{"build"}, strings.Fields(buildOpts)...)
+	args = append(args, "-o", pm.conf.build)
+
+	// Execute the build command with options
+	out, err := exec.Command("go", args...).CombinedOutput()
 
 	if err != nil {
 		logger.Errorf("build failed! %s", err.Error())
