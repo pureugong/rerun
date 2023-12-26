@@ -25,7 +25,7 @@ var (
 	confPath  = kingpin.Flag("config", "JSON configuration location").Short('c').String()
 	test      = kingpin.Flag("test", "Run tests").Short('t').Bool()
 	attrib    = kingpin.Flag("attrib", "Also watch attribute changes").Bool()
-	buildOpts = kingpin.Flag("buildopts", "Build Options to build go").String()
+	buildOpts = kingpin.Flag("buildopts", "Build Options to build go").Short('b').String()
 )
 
 type config struct {
